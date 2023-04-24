@@ -11,6 +11,6 @@ import java.util.List;
  */
 @Mapper
 public interface ArticleMapper {
-    List<Article> GetArticle();
+    List<Article> GetHotArticle();
 
 }

@@ -1,6 +1,7 @@
 package com.cg.service;
 
 import com.cg.entity.Article;
+import com.cg.util.ResponseResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,6 @@ import java.util.List;
  * @date 2023-04-22 20:13
  */
 public interface ArticleService {
-    List<Article> GetArticle();
+    ResponseResult GetHotArticle();
 
 }
