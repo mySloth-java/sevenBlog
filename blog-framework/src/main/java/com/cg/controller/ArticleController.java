@@ -20,7 +20,9 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    //热门文章查询 TODO 分页功能(现在前后端分页都写死了，但好像不用考虑)、热门算法(近期点赞数)
+    //热门文章查询
+    // TODO 分页功能(现在前后端分页都写死了，但好像不用考虑)、热门算法(近期点赞数)
+    // TODO 考虑要不要加入缓存，使用AOP不对源代码进行修改
     @GetMapping("/hotArticle")
     public ResponseResult GetArticle(){
         return articleService.GetHotArticle();
