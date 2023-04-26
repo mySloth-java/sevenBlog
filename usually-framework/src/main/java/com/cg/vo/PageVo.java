@@ -4,18 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * @author cgJavaAfter
- * @date 2023-04-24 20:58
+ * @date 2023-04-25 21:08
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-//热门文章返回类
-public class HotArticle {
-    private Long id;
-    //标题
-    private String title;
-    //访问量
-    private Long viewCount;
+//分页返回类
+public class PageVo {
+    private List rows;
+    private Integer total;
 }

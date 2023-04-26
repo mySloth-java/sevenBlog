@@ -8,4 +8,21 @@
         select * from sg_article
             limit 0,9
     </select>
+
+<!--    List<Category> ClassifyCategory(@Param("categoryId") Long categoryId,
+                                    @Param("pageNum") Integer pageNum,
+                                    @Param("pageSize") Integer pageSize);-->
+    <select id="ClassifyCategory" resultType="com.cg.entity.Article">
+        select * from sg_article
+            where category_id = #{categoryId}
+            order by is_top DESC
+            limit #{pageNum},#{pageSize}
+    </select>
+
+<!--    List<Article> GetArticleByCIdCount(@Param("categoryId") Long categoryId);-->
+    <select id="GetArticleByCIdCount" resultType="integer">
+        select count(id) from sg_article
+            where category_id = #{categoryId}
+    </select>
+
 </mapper>

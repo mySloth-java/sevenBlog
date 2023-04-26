@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+//分类标签返回类
 public class ClassifyCategory {
     private Long id;
     private String name;

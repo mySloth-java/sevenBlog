@@ -16,4 +16,10 @@
                 #{ids}
             </foreach>
     </select>
+
+<!--    String GetCategoryById(@Param("id") Long id);-->
+    <select id="GetCategoryById" resultType="com.cg.entity.Category">
+        select * from sg_category
+            where id = #{id}
+    </select>
 </mapper>

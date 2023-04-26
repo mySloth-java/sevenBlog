@@ -13,4 +13,5 @@ import java.util.List;
 public interface ArticleService {
     ResponseResult GetHotArticle();
 
+    ResponseResult ClassifyArticle(Long categoryId, Integer pageNum, Integer pageSize);
 }
