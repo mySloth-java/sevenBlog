@@ -7,6 +7,7 @@ import com.cg.mapper.CategoryMapper;
 import com.cg.service.ArticleService;
 import com.cg.util.BeanCopyUtils;
 import com.cg.util.ResponseResult;
+import com.cg.vo.ArticleById;
 import com.cg.vo.ClassifyArticle;
 import com.cg.vo.HotArticle;
 import com.cg.vo.PageVo;
@@ -76,5 +77,20 @@ public class ArticleServiceImpl implements ArticleService {
         }
         PageVo pageVo = new PageVo(classifyArticles, integer);
         return ResponseResult.okResult(pageVo);
+    }
+
+    @Override
+    public ResponseResult GetArticle(Long id) {
+        //根据Id获取到查询到的文章详情
+        Article articles = articleMapper.GetArticleById(id);
+        //封装vo返回
+        ArticleById articleById = BeanCopyUtils.copyBean(articles, ArticleById.class);
+
+        //根据categoryId查询到name设置到vo中返回
+        Long categoryId = articleById.getCategoryId();
+        Category category = categoryMapper.GetCategoryById(categoryId);
+        articleById.setCategoryName(category.getName());
+
+        return ResponseResult.okResult(articleById);
     }
 }

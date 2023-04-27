@@ -15,6 +15,8 @@ import java.util.List;
 public interface ArticleMapper {
     List<Article> GetHotArticle();
 
+    Article GetArticleById(Long id);
+
     Integer GetArticleByCIdCount(@Param("categoryId") Long categoryId);
 
     List<Article> ClassifyCategory(@Param("categoryId") Long categoryId,

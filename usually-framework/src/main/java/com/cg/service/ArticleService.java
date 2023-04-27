@@ -14,4 +14,6 @@ public interface ArticleService {
     ResponseResult GetHotArticle();
 
     ResponseResult ClassifyArticle(Long categoryId, Integer pageNum, Integer pageSize);
+
+    ResponseResult GetArticle(Long id);
 }

@@ -25,4 +25,10 @@
             where category_id = #{categoryId}
     </select>
 
+<!--    List<Article> GetArticleById(Long id);-->
+    <select id="GetArticleById" resultType="com.cg.entity.Article">
+        select * from sg_article
+            where id = #{id}
+    </select>
+
 </mapper>
