@@ -1,11 +1,11 @@
 package com.cg.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.cg.entity.User;
+import com.cg.entity.LoginUser;
+import com.cg.entity.LoginUserDetails;
 import com.cg.service.LoginService;
 import com.cg.util.JwtUtil;
 import com.cg.util.ResponseResult;
-import com.cg.util.TestSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,10 +31,10 @@ public class LoginServiceImpl implements LoginService {
     private AuthenticationManager authenticationManager;
 
     @Override
-    public ResponseResult Login(User user) {
+    public ResponseResult Login(LoginUser user) {
         //1、注入AuthenticationManager 进行用户认证
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(user.getName(),user.getPassword());
+                new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword());
         //2、将Authentication结果封装给providerManager过滤器完成验证操作，它就会调用继承UserDetails接口的实现类方法完成重写
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
 
@@ -44,7 +44,7 @@ public class LoginServiceImpl implements LoginService {
         }
 
         //3、认证成功后，根据authenticate的信息得到userId将其生成为jwt存入返回值中
-        TestSecurity principal = (TestSecurity) authenticate.getPrincipal();
+        LoginUserDetails principal = (LoginUserDetails) authenticate.getPrincipal();
         String id = principal.getUser().getId().toString();
         String jwt = JwtUtil.createJWT(id);
         HashMap<Object, Object> map = new HashMap<>();
@@ -63,8 +63,8 @@ public class LoginServiceImpl implements LoginService {
     public ResponseResult Logout() {
         //获取securityHolder的信息，通过信息得到id删除redis内的信息
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        TestSecurity principal = (TestSecurity)authentication.getPrincipal();
-        Integer id = principal.getUser().getId();
+        LoginUserDetails principal = (LoginUserDetails)authentication.getPrincipal();
+        Long id = principal.getUser().getId();
         stringRedisTemplate.delete("login:user:"+id);
         return ResponseResult.okResult();
     }

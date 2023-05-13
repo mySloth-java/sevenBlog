@@ -1,6 +1,6 @@
 package com.cg.controller;
 
-import com.cg.entity.User;
+import com.cg.entity.LoginUser;
 import com.cg.service.LoginService;
 import com.cg.util.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping("/login")
-    public ResponseResult Login(@RequestBody User user){
+    public ResponseResult Login(@RequestBody LoginUser user){
         return loginService.Login(user);
     }
 

@@ -1,6 +1,6 @@
 package com.cg.mapper;
 
-import com.cg.entity.User;
+import com.cg.entity.LoginUser;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,6 +10,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface LoginMapper {
 
-    User GetLoginByName(String name);
+    LoginUser GetLoginByName(String name);
 
 }

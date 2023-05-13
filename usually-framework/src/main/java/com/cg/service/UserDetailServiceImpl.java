@@ -1,8 +1,8 @@
 package com.cg.service;
 
-import com.cg.entity.User;
+import com.cg.entity.LoginUser;
+import com.cg.entity.LoginUserDetails;
 import com.cg.mapper.LoginMapper;
-import com.cg.util.TestSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,7 +31,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     //实现用户加密
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = loginMapper.GetLoginByName(username);
+        LoginUser user = loginMapper.GetLoginByName(username);
         if(user == null){
             throw new RuntimeException("用户密码错误");
         }
@@ -41,7 +41,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         //创建权限集合，封装到返回结果中
         List<String> list = new ArrayList<>(Arrays.asList("test","admin"));
-        return new TestSecurity(user,list);
+        return new LoginUserDetails(user,list);
     }
 
 

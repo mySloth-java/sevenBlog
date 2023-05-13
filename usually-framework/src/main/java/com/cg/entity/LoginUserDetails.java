@@ -1,31 +1,31 @@
-package com.cg.util;
+package com.cg.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.cg.entity.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author cgJavaAfter
- * @date 2023-05-06 14:55
+ * @date 2023-05-13 17:12
  */
 @Data
 @NoArgsConstructor
-public class TestSecurity implements UserDetails {
+public class LoginUserDetails implements UserDetails {
 
-    private User user;
+    private LoginUser user;
 
     //定义成员变量封装权限信息
     private List<String> list;
 
-    public TestSecurity(User user, List<String> list) {
+    public LoginUserDetails(LoginUser user, List<String> list) {
         this.user = user;
         this.list = list;
     }
@@ -57,7 +57,7 @@ public class TestSecurity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getName();
+        return user.getUserName();
     }
 
     @Override

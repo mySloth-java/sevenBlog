@@ -1,8 +1,8 @@
 package com.cg.config;
 
 import com.alibaba.fastjson.JSON;
+import com.cg.entity.LoginUserDetails;
 import com.cg.util.JwtUtil;
-import com.cg.util.TestSecurity;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -52,7 +52,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String userInfo = stringRedisTemplate.opsForValue().get("login:user:" + id);
 
         //反序列化得到对象
-        TestSecurity security = JSON.parseObject(userInfo, TestSecurity.class);
+        LoginUserDetails security = JSON.parseObject(userInfo, LoginUserDetails.class);
 
         //判断是否为空
         if(Objects.isNull(security)){
