@@ -2,6 +2,7 @@ package com.cg.mapper;
 
 import com.cg.entity.LoginUser;
 import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
 
 /**
  * @author cgJavaAfter
@@ -11,5 +12,9 @@ import org.apache.ibatis.annotations.Mapper;
 public interface LoginMapper {
 
     LoginUser GetLoginByName(String name);
+
+    List<String> GetAuthority(Long id);
+
+
 
 }

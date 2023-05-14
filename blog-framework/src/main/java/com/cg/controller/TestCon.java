@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestCon {
 
     @GetMapping("/authority")
-    @PreAuthorize("hasAuthority('test2')")
+    @PreAuthorize("hasAuthority('system:user:list')")
     public String Test(){
         return "my test success";
     }

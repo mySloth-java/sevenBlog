@@ -9,9 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,9 +36,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
         String elephant = passwordEncoder.encode("elephant");
         //$2a$10$ RXyeND.irG3O.mZcVG6rAuN5PgeEpiXmG9I0cZpWOFZZIufnM4JAS
 
-        //创建权限集合，封装到返回结果中
-        List<String> list = new ArrayList<>(Arrays.asList("test","admin"));
-        return new LoginUserDetails(user,list);
+        //TODO 连表和分段根据需要取舍
+        //获取用户Id，根据Id查询roleId，根据roleId找到menuId，进而找到menu表中的perms权限信息
+        List<String> authorities = loginMapper.GetAuthority(user.getId());
+
+        return new LoginUserDetails(user,authorities);
     }
 
 

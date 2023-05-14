@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -21,6 +23,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtTokenFilter jwtTokenFilter;
+
+    @Autowired
+    private AuthenticationEntryPoint authenticationEntryPoint;
+
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
 
     //指定接口放行
     @Override
@@ -38,6 +46,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         //此过滤器是根据token来验证，所以必须要保证此过滤器在登录过滤器之前
+
+        //设置权限过滤器
+        http.exceptionHandling()
+                //认证过滤器
+                .authenticationEntryPoint(authenticationEntryPoint)
+                //权限过滤器
+                .accessDeniedHandler(accessDeniedHandler);
     }
 
     @Bean
