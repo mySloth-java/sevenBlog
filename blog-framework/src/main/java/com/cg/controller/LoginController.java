@@ -17,6 +17,11 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    @PostMapping("/register")//TODO
+    public ResponseResult Register(@RequestBody LoginUser user){
+        return null;
+    }
+
     @PostMapping("/login")
     public ResponseResult Login(@RequestBody LoginUser user){
         return loginService.Login(user);

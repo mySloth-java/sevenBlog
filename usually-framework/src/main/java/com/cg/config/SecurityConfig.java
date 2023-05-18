@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @date 2023-05-06 15:28
  */
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)//开启权限认证注解@PreAuthorize的使用
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -42,10 +42,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //放行接口
                 .antMatchers("/user/login").anonymous()
+
+                //配置文件实现
+//                .antMatchers("/authority").hasAuthority("/system:user:list")
+
                 //除放行接口需要鉴权认证
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         //此过滤器是根据token来验证，所以必须要保证此过滤器在登录过滤器之前
+
+
 
         //设置权限过滤器
         http.exceptionHandling()

@@ -5,7 +5,7 @@
 <mapper namespace="com.cg.mapper.LoginMapper">
 <!--    Login GetLoginByName(String name);-->
     <select id="GetLoginByName" resultType="com.cg.entity.LoginUser">
-        select id,user_name,password from login_user
+        select * from login_user
             where user_name = #{name}
     </select>
 

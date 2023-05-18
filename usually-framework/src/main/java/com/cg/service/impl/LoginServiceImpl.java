@@ -4,8 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.cg.entity.LoginUser;
 import com.cg.entity.LoginUserDetails;
 import com.cg.service.LoginService;
+import com.cg.util.BeanCopyUtils;
 import com.cg.util.JwtUtil;
 import com.cg.util.ResponseResult;
+import com.cg.vo.LoginUserInfo;
+import com.cg.vo.LoginUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,15 +50,23 @@ public class LoginServiceImpl implements LoginService {
         LoginUserDetails principal = (LoginUserDetails) authenticate.getPrincipal();
         String id = principal.getUser().getId().toString();
         String jwt = JwtUtil.createJWT(id);
-        HashMap<Object, Object> map = new HashMap<>();
-        map.put("token",jwt);
+
+        //采用自定义vo封装user信息和token信息
+        //3.1将user的信息拷贝封装vo
+        LoginUserInfo loginUserInfo = BeanCopyUtils.copyBean(principal.getUser(), LoginUserInfo.class);
+
+        //3.2将token和userInfo存入
+        LoginUserVo loginUserVo = new LoginUserVo(jwt,loginUserInfo);
+
+//        HashMap<Object, Object> map = new HashMap<>();
+//        map.put("token",jwt);
 
         //将完整信息序列化
         String userInfo = JSON.toJSONString(principal);
 
         //4、完整信息存入redis中
         stringRedisTemplate.opsForValue().set("login:user:"+id,userInfo);
-        return ResponseResult.okResult(map);
+        return ResponseResult.okResult(loginUserVo);
     }
 
     //退出登录

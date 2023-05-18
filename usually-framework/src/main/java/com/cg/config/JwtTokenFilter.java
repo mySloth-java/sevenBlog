@@ -25,10 +25,8 @@ import java.util.Objects;
  */
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
-
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         //从header中获取token
@@ -59,14 +57,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             throw new RuntimeException("用户未登录");
         }
 
-
         //4、存入securityHolder，需要封装对象authentication
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(security, null, security.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
         filterChain.doFilter(request,response);
-
-
     }
 }
