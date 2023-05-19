@@ -1,7 +1,9 @@
 package com.cg.service;
 
+import com.cg.config.GlobalException;
 import com.cg.entity.LoginUser;
 import com.cg.entity.LoginUserDetails;
+import com.cg.enums.AppHttpCodeEnum;
 import com.cg.mapper.LoginMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,7 +31,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LoginUser user = loginMapper.GetLoginByName(username);
         if(user == null){
-            throw new RuntimeException("用户密码错误");
+            //用户名或密码错误
+            throw new GlobalException(AppHttpCodeEnum.PASSWORD_ERROR);
         }
         //查询完成后封装成UserDetails返回
 //        String elephant = passwordEncoder.encode("elephant");

@@ -1,8 +1,10 @@
 package com.cg.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.cg.config.GlobalException;
 import com.cg.entity.LoginUser;
 import com.cg.entity.LoginUserDetails;
+import com.cg.enums.AppHttpCodeEnum;
 import com.cg.service.LoginService;
 import com.cg.util.BeanCopyUtils;
 import com.cg.util.JwtUtil;
@@ -16,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -35,13 +38,20 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public ResponseResult Login(LoginUser user) {
+        //extra 添加全局异常信息
+        if(!StringUtils.hasText(user.getUserName())){
+            //没有传入用户名给出指定错误提示，前端同样会做处理
+            throw new GlobalException(AppHttpCodeEnum.NOT_USER);
+        }
+
+
         //1、注入AuthenticationManager 进行用户认证
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword());
         //2、将Authentication结果封装给providerManager过滤器完成验证操作，它就会调用继承UserDetails接口的实现类方法完成重写
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
 
-        //判断，如果不为空则在数据可以查到
+        //判断，如果不为空则在数据可以查到 TODO 此处没必要再加判断吧，待测试
         if(Objects.isNull(authenticate)){
             throw new RuntimeException("登录错误");
         }
