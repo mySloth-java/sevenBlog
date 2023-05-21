@@ -15,6 +15,8 @@ public interface LoginMapper {
 
     List<String> GetAuthority(Long id);
 
+    LoginUser GetLoginById(Long id);
+
 
 
 }

@@ -20,7 +20,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.HashMap;
 import java.util.Objects;
 
 /**
@@ -68,9 +67,6 @@ public class LoginServiceImpl implements LoginService {
         //3.2将token和userInfo存入
         LoginUserVo loginUserVo = new LoginUserVo(jwt,loginUserInfo);
 
-//        HashMap<Object, Object> map = new HashMap<>();
-//        map.put("token",jwt);
-
         //将完整信息序列化
         String userInfo = JSON.toJSONString(principal);
 
@@ -88,5 +84,12 @@ public class LoginServiceImpl implements LoginService {
         Long id = principal.getUser().getId();
         stringRedisTemplate.delete("login:user:"+id);
         return ResponseResult.okResult();
+    }
+
+    //用户注册
+    @Override
+    public ResponseResult register(LoginUser user) {
+
+        return null;
     }
 }

@@ -19,4 +19,10 @@
         where ur.user_id = #{id} and r.status = 0
     </select>
 
+<!--    LoginUser GetLoginById(Long id);-->
+    <select id="GetLoginById" resultType="com.cg.entity.LoginUser">
+        select * from login_user
+            where id = #{id}
+    </select>
+
 </mapper>

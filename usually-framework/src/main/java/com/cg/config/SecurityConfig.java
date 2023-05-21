@@ -51,6 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         //此过滤器是根据token来验证，所以必须要保证此过滤器在登录过滤器之前
 
+        http.cors();//允许跨域
+
 
 
         //设置权限过滤器

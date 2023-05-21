@@ -19,7 +19,7 @@ public class LoginController {
 
     @PostMapping("/register")//TODO
     public ResponseResult Register(@RequestBody LoginUser user){
-        return null;
+        return loginService.register(user);
     }
 
     @PostMapping("/login")
