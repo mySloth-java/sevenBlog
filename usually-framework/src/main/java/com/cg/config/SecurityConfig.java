@@ -41,13 +41,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //放行接口
-                .antMatchers("/user/login").anonymous()
+                .antMatchers("/user/login").anonymous()//允许匿名登录，不允许已登入访问
+
+
 
                 //配置文件实现
 //                .antMatchers("/authority").hasAuthority("/system:user:list")
 
                 //除放行接口需要鉴权认证
-                .anyRequest().authenticated();
+//                .anyRequest().authenticated();
+                //除上拦截请求不需要认证都可访问
+                .anyRequest().permitAll();
+
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         //此过滤器是根据token来验证，所以必须要保证此过滤器在登录过滤器之前
 

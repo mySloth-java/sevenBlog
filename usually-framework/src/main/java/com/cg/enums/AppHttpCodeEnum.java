@@ -14,9 +14,16 @@ public enum AppHttpCodeEnum {
     IDENTIFY_ERROR(403,"用户认证失败"),
     NOT_POWER(405,"权限不足，无法访问"),
     NOT_USER(406,"请填写用户名"),
+    USER_EXIST(407,"用户已经存在"),
 
     //文件
     FILE_TYPE_ERROR(411,"文件格式错误，请上传png或jpg格式"),
+
+
+    //数据库错误
+    DATA_ERROR_UPDATE(420,"更新数据库错误!"),
+    DATA_ERROR_ADD(421,"添加数据库出错!"),
+    DATA_NULL(422,"数据不能为Null"),
 
 
 

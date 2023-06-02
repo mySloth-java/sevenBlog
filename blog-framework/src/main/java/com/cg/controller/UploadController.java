@@ -36,6 +36,7 @@ public class UploadController {
 
 
 
+    //用户上传头像
     @PostMapping("/imgUpload")
     public ResponseResult ImgUpload(MultipartFile multipartFile){
         return uploadService.ImgUpload(multipartFile);

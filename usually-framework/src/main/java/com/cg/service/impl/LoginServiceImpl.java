@@ -18,9 +18,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -35,6 +37,9 @@ public class LoginServiceImpl implements LoginService {
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     //用户的登录
     @Override
@@ -88,13 +93,6 @@ public class LoginServiceImpl implements LoginService {
         return ResponseResult.okResult();
     }
 
-    //用户注册
-    @Override
-    public ResponseResult register(LoginUser user) {
-
-        return null;
-    }
-
     //获取用户详细信息
     @Override
     public ResponseResult GetUserInfo() {
@@ -106,5 +104,39 @@ public class LoginServiceImpl implements LoginService {
 
         LoginUserInfo loginUserInfo = BeanCopyUtils.copyBean(loginUser, LoginUserInfo.class);
         return ResponseResult.okResult(loginUserInfo);
+    }
+
+    //更新用户数据
+    @Override
+    public ResponseResult Update(LoginUser user) {
+        Integer update = loginMapper.Update(user);
+        if(update == null){
+            throw new GlobalException(AppHttpCodeEnum.DATA_ERROR_UPDATE);
+        }
+        return ResponseResult.okResult();
+    }
+
+    //注册用户
+    @Override
+    public ResponseResult Register(LoginUser user) {
+        //非空判断
+        if(Objects.isNull(user)){
+            throw new GlobalException(AppHttpCodeEnum.DATA_NULL);
+        }
+        //判断是否存在
+        LoginUser loginUser = loginMapper.GetLoginByName(user.getUserName());
+        if(loginUser != null){
+            throw new GlobalException(AppHttpCodeEnum.USER_EXIST);
+        }
+        user.setCreateTime(new Date());
+        user.setUpdateTime(new Date());
+
+        //密码加密存储
+        String password = user.getPassword();
+        String encode = passwordEncoder.encode(password);
+        user.setPassword(encode);
+
+        Integer update = loginMapper.Add(user);
+        return ResponseResult.okResult();
     }
 }

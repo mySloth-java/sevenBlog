@@ -43,6 +43,7 @@ public class UploadServiceImpl implements UploadService {
         return ResponseResult.okResult(url);
     }
 
+    //用户上传图片
     private String UploadOSS(MultipartFile multipartFile,String fileName) {
         //OSS服务器地址
         String endpoint = "https://oss-cn-shanghai.aliyuncs.com";
@@ -53,7 +54,7 @@ public class UploadServiceImpl implements UploadService {
         String prefix = dateTime.year() + "/" + (dateTime.month() + 1) + "/" + dateTime.dayOfMonth() + "/";//月份从0开始的
 
         //将时间前缀和文件名称合并
-        String objectName = prefix + fileName;
+        String objectName = "userImg/" + prefix + fileName;
 
         // 创建OSSClient实例。
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKey, secretKey);

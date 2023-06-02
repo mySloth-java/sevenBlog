@@ -32,17 +32,13 @@ public class LoginUser {
     //邮箱
     private String email;
     //手机号
-    private String phonenumber;
+    private String phone;
     //用户性别（0男，1女，2未知）
     private String sex;
     //头像
     private String avatar;
-    //创建人的用户id
-    private Long createBy;
     //创建时间
     private Date createTime;
-    //更新人
-    private Long updateBy;
     //更新时间
     private Date updateTime;
     //删除标志（0代表未删除，1代表已删除）

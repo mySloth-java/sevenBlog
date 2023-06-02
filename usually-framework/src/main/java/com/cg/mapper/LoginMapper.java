@@ -17,6 +17,12 @@ public interface LoginMapper {
 
     LoginUser GetLoginById(Long id);
 
+    Integer Update(LoginUser user);
+
+    Integer Add(LoginUser user);
+
+
+
 
 
 }

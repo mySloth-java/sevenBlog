@@ -12,7 +12,9 @@ public interface LoginService {
 
     ResponseResult Logout();
 
-    ResponseResult register(LoginUser user);
-
     ResponseResult GetUserInfo();
+
+    ResponseResult Update(LoginUser user);
+
+    ResponseResult Register(LoginUser user);
 }

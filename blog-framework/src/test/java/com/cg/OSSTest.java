@@ -19,9 +19,7 @@ import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
-import java.io.ByteArrayInputStream;
 
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -33,9 +31,7 @@ import java.util.Date;
  */
 @SpringBootTest//包名与启动类不一致时需要指定启动类.class文件
 public class OSSTest {
-    @Value("${QiNiu_OSS.accessKey}")
     String accessKey;
-    @Value("${QiNiu_OSS.secretKey}")
     String secretKey;
     String bucket = "se7en-data-img";
 

@@ -17,9 +17,10 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @PostMapping("/register")//TODO
+    //用户注册
+    @PostMapping("/register")
     public ResponseResult Register(@RequestBody LoginUser user){
-        return loginService.register(user);
+        return loginService.Register(user);
     }
 
     @PostMapping("/login")
@@ -36,6 +37,13 @@ public class LoginController {
     public ResponseResult GetUserInfo(){
         return loginService.GetUserInfo();
     }
+
+    @PutMapping
+    public ResponseResult Update(@RequestBody LoginUser user){
+        return loginService.Update(user);
+    }
+
+
 
 
 
