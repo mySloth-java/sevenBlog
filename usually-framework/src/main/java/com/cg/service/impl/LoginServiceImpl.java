@@ -5,6 +5,7 @@ import com.cg.config.GlobalException;
 import com.cg.entity.LoginUser;
 import com.cg.entity.LoginUserDetails;
 import com.cg.enums.AppHttpCodeEnum;
+import com.cg.mapper.LoginMapper;
 import com.cg.service.LoginService;
 import com.cg.util.BeanCopyUtils;
 import com.cg.util.JwtUtil;
@@ -28,13 +29,14 @@ import java.util.Objects;
  */
 @Service
 public class LoginServiceImpl implements LoginService {
-
+    @Autowired
+    private LoginMapper loginMapper;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
-
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    //用户的登录
     @Override
     public ResponseResult Login(LoginUser user) {
         //extra 添加全局异常信息
@@ -91,5 +93,18 @@ public class LoginServiceImpl implements LoginService {
     public ResponseResult register(LoginUser user) {
 
         return null;
+    }
+
+    //获取用户详细信息
+    @Override
+    public ResponseResult GetUserInfo() {
+        //获取用户Id，根据用户id查询用户信息并封装成结果
+        //TODO 我一直好奇存入holder的数据是怎么保证数据不一样并且能准确取出来的
+        LoginUserDetails principal = (LoginUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long id = principal.getUser().getId();
+        LoginUser loginUser = loginMapper.GetLoginById(id);
+
+        LoginUserInfo loginUserInfo = BeanCopyUtils.copyBean(loginUser, LoginUserInfo.class);
+        return ResponseResult.okResult(loginUserInfo);
     }
 }

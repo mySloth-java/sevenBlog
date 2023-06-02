@@ -9,6 +9,7 @@
     <select id="GetComment" resultType="com.cg.entity.Comment">
         select * from comment
             where article_id = #{articleId}
+            order by create_time desc
             limit #{pageNum},#{pageSize}
     </select>
 
@@ -23,5 +24,14 @@
         select * from comment
             where root_id = #{id}
     </select>
+
+<!--    Integer AddComment(Comment comment);-->
+    <insert id="AddComment">
+        insert into comment
+            (article_id,root_id,content,to_comment_user_id,to_comment_id,
+             create_by,create_time,update_by,update_time)
+            values (#{articleId},#{rootId},#{content},#{toCommentUserId},#{toCommentId}
+            ,#{createBy},#{createTime},#{updateBy},#{updateTime})
+    </insert>
 
 </mapper>

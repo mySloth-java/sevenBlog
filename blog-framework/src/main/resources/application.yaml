@@ -1,6 +1,11 @@
 server:
   port: 7777
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 100MB
+      max-file-size: 20MB
   datasource:
     url: jdbc:mysql://localhost:3306/seven_blog?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
@@ -16,3 +21,8 @@ spring:
         max-idle: 10
         min-idle: 1
         time-between-eviction-runs: 10s
+
+ALiYun_OSS:
+  accessKey: LTAI5tGmPvZjKtmQ8y4ti5Jd
+  secretKey: fQnOksoXwaReKbU4MmZVuVZo3JnW12
+  bucket_img: se7en-data-img

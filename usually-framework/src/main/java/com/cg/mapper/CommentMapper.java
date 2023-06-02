@@ -19,4 +19,6 @@ public interface CommentMapper {
     Integer GetCommentByArticleIdCount(Long articleId);
 
     List<Comment> GetCommentById(Long id);
+
+    Integer AddComment(Comment comment);
 }

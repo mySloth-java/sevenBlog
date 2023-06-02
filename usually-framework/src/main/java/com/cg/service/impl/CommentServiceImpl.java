@@ -2,6 +2,7 @@ package com.cg.service.impl;
 
 import com.cg.entity.Comment;
 import com.cg.entity.LoginUser;
+import com.cg.entity.LoginUserDetails;
 import com.cg.mapper.CommentMapper;
 import com.cg.mapper.LoginMapper;
 import com.cg.service.CommentService;
@@ -10,8 +11,10 @@ import com.cg.util.ResponseResult;
 import com.cg.vo.CommentPageVo;
 import com.cg.vo.CommentVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,6 +55,29 @@ public class CommentServiceImpl implements CommentService {
         CommentPageVo commentPageVo = new CommentPageVo(commentVos,count);
 
         return ResponseResult.okResult(commentPageVo);
+    }
+
+    //发送评论
+    @Override
+    public ResponseResult AddComment(Comment comment) {
+        //前端发送的数据并没有name和toCommentName
+        //从securityHolder中取出用户信息
+        LoginUserDetails principal = (LoginUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //获取用户Id并设置
+        Long id = principal.getUser().getId();
+
+        //TODO 对id进行判断操作
+
+        comment.setCreateBy(id);
+        comment.setUpdateBy(id);
+        comment.setCreateTime(new Date());
+        comment.setUpdateTime(new Date());
+
+        //在添加comment前进行属性的赋值
+        Integer integer = commentMapper.AddComment(comment);
+
+
+        return ResponseResult.okResult();
     }
 
     //把对Comments属性赋值进行方法封装，children的comments再次赋值属性直接调取即可

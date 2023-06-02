@@ -13,4 +13,6 @@ public interface LoginService {
     ResponseResult Logout();
 
     ResponseResult register(LoginUser user);
+
+    ResponseResult GetUserInfo();
 }

@@ -15,6 +15,9 @@ public enum AppHttpCodeEnum {
     NOT_POWER(405,"权限不足，无法访问"),
     NOT_USER(406,"请填写用户名"),
 
+    //文件
+    FILE_TYPE_ERROR(411,"文件格式错误，请上传png或jpg格式"),
+
 
 
     //全局系统错误(没统计的错误)

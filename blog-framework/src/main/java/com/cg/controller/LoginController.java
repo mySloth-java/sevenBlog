@@ -27,9 +27,16 @@ public class LoginController {
         return loginService.Login(user);
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public ResponseResult Logout(){
         return loginService.Logout();
     }
+
+    @GetMapping("/info")
+    public ResponseResult GetUserInfo(){
+        return loginService.GetUserInfo();
+    }
+
+
 
 }
