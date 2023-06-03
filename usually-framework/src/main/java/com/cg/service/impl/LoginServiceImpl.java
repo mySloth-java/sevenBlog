@@ -137,6 +137,11 @@ public class LoginServiceImpl implements LoginService {
         user.setPassword(encode);
 
         Integer update = loginMapper.Add(user);
+
+        if(update == null){
+            throw new GlobalException(AppHttpCodeEnum.DATA_ERROR_UPDATE);
+        }
+
         return ResponseResult.okResult();
     }
 }

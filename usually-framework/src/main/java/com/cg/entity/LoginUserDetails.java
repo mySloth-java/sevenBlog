@@ -22,7 +22,7 @@ public class LoginUserDetails implements UserDetails {
 
     private LoginUser user;
 
-    //定义成员变量封装权限信息 TODO 使用Set去重
+    //定义成员变量封装权限信息
     private List<String> list;
 
     public LoginUserDetails(LoginUser user, List<String> list) {

@@ -1,5 +1,6 @@
 package com.cg.controller;
 
+import com.cg.annotation.LogPrint;
 import com.cg.entity.LoginUser;
 import com.cg.service.LoginService;
 import com.cg.util.ResponseResult;
@@ -24,6 +25,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
+    @LogPrint(conName = "用户登录")
     public ResponseResult Login(@RequestBody LoginUser user){
         return loginService.Login(user);
     }
