@@ -4,10 +4,7 @@ import com.cg.entity.Article;
 import com.cg.service.ArticleService;
 import com.cg.util.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,6 +36,12 @@ public class ArticleController {
     @GetMapping("/{id}")
     public ResponseResult GetArticle(@PathVariable("id")Long id){
         return articleService.GetArticle(id);
+    }
+
+    //更新文章浏览量
+    @PutMapping("/viewCount/{id}")
+    public ResponseResult UpdateViewCount(@PathVariable("id")Long id){
+        return articleService.UpdateViewCount(id);
     }
 
 

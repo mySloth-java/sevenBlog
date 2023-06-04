@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Article {
-    
     private Long id;
     //标题
     private String title;
@@ -28,7 +27,7 @@ public class Article {
     //所属分类id
     private Long categoryId;
     //缩略图
-    private String thumbnail;
+    private String img;
     //是否置顶（0否，1是）
     private String isTop;
     //状态（0已发布，1草稿）

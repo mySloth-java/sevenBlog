@@ -14,10 +14,13 @@ import com.cg.vo.PageVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.cg.util.SystemConstants.ARTICLE_VIEW_COUNT;
 
 /**
  * @author cgJavaAfter
@@ -27,6 +30,9 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleMapper articleMapper;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     private CategoryMapper categoryMapper;
@@ -92,5 +98,12 @@ public class ArticleServiceImpl implements ArticleService {
         articleById.setCategoryName(category.getName());
 
         return ResponseResult.okResult(articleById);
+    }
+
+
+    @Override
+    public ResponseResult UpdateViewCount(Long id) {
+        stringRedisTemplate.opsForHash().increment(ARTICLE_VIEW_COUNT,id.toString(),1);
+        return ResponseResult.okResult();
     }
 }
