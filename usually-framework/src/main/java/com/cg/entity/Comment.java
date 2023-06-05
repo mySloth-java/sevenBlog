@@ -2,6 +2,9 @@ package com.cg.entity;
 
 import java.util.Date;
 import java.io.Serializable;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +19,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(description = "评论实体类")
 public class Comment {
-    
+    @ApiModelProperty(notes = "评论Id")
     private Long id;
     //评论类型（0代表文章评论，1代表友链评论）
     private String type;

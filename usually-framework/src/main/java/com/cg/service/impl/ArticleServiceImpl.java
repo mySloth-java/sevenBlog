@@ -106,4 +106,11 @@ public class ArticleServiceImpl implements ArticleService {
         stringRedisTemplate.opsForHash().increment(ARTICLE_VIEW_COUNT,id.toString(),1);
         return ResponseResult.okResult();
     }
+
+    @Override
+    public ResponseResult GetViewCount(Long id) {
+        Object viewCountObj = stringRedisTemplate.opsForHash().get(ARTICLE_VIEW_COUNT, id.toString());
+        Long viewCount = Long.valueOf((String) viewCountObj);
+        return ResponseResult.okResult(viewCount);
+    }
 }

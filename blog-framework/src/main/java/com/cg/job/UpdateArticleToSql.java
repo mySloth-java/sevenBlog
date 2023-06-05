@@ -25,7 +25,7 @@ public class UpdateArticleToSql {
     @Autowired
     private ArticleMapper articleMapper;
 
-    @Scheduled(cron = "0/10 * * * * ?")
+    @Scheduled(cron = "0 0/10 * * * ?")//每10min同步redis到sql中
     public void UpdateViewCount(){
         Map<Object, Object> entries = stringRedisTemplate.opsForHash().entries(ARTICLE_VIEW_COUNT);
 
@@ -37,7 +37,7 @@ public class UpdateArticleToSql {
             article.setId(id);
             article.setViewCount(viewCount);
 
-            Integer update = articleMapper.Update(article);
+            articleMapper.Update(article);
         }
     }
 

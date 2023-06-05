@@ -1,12 +1,14 @@
 package com.cg.controller;
 
-import com.cg.entity.Article;
 import com.cg.service.ArticleService;
 import com.cg.util.ResponseResult;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 /**
  * @author cgJavaAfter
@@ -14,6 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/article")
+@Api(tags = "文章接口",description = "文章相关的接口")
 public class ArticleController {
     @Autowired
     private ArticleService articleService;
@@ -34,6 +37,10 @@ public class ArticleController {
 
     //查询文章详情
     @GetMapping("/{id}")
+    @ApiOperation(value = "文章详情",notes = "通过前端传入id查询文章详情")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id",value = "文章id")
+    })
     public ResponseResult GetArticle(@PathVariable("id")Long id){
         return articleService.GetArticle(id);
     }
@@ -42,6 +49,12 @@ public class ArticleController {
     @PutMapping("/viewCount/{id}")
     public ResponseResult UpdateViewCount(@PathVariable("id")Long id){
         return articleService.UpdateViewCount(id);
+    }
+
+    //查询文章浏览量
+    @GetMapping("/viewCount")
+    public ResponseResult GetViewCount(Long id){
+        return articleService.GetViewCount(id);
     }
 
 

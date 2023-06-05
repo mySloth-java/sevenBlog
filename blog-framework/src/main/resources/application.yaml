@@ -6,11 +6,13 @@ spring:
       enabled: true
       max-request-size: 100MB
       max-file-size: 20MB
+
   datasource:
     url: jdbc:mysql://localhost:3306/seven_blog?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: mysql8
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   redis:
     host: 192.168.223.129
     port: 6379
@@ -21,8 +23,14 @@ spring:
         max-idle: 10
         min-idle: 1
         time-between-eviction-runs: 10s
+  #  配置mvc映射匹配策略
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 ALiYun_OSS:
   accessKey: LTAI5tGmPvZjKtmQ8y4ti5Jd
   secretKey: fQnOksoXwaReKbU4MmZVuVZo3JnW12
   bucket_img: se7en-data-img
+
+

@@ -34,7 +34,6 @@ public class ViewRunner implements CommandLineRunner {
         List<Article> articles = articleMapper.GetAllArticle();
 
         //通过stream获取文章的id和浏览量
-        //TODO redis的MAP只能存储String，考虑如何让其自增  拿出来自增后再以String存入?
         Map<String , String> collect = articles.stream()
                 .collect(Collectors.toMap(article -> article.getId().toString()
                         , article -> {

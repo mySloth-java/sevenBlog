@@ -18,4 +18,6 @@ public interface ArticleService {
     ResponseResult GetArticle(Long id);
 
     ResponseResult UpdateViewCount(Long id);
+
+    ResponseResult GetViewCount(Long id);
 }
